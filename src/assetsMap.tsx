@@ -16,7 +16,7 @@ Object.entries(images).forEach(([path, url]) => {
   const match = path.match(/authors\/([^/]+)\/([^/]+\.png)$/);
   if (!match) return;
 
-  const [, authorId, fileName] = match;
+  const [, authorId] = match;
 
   if (!authorAssets[authorId]) {
     authorAssets[authorId] = [];

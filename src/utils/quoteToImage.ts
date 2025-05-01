@@ -1,7 +1,7 @@
 import { Author } from "../components/pages/HomePage/HomePage";
 
 export async function quoteToImage({
-  name,
+  // name,
   choosedBg,
   authorFont,
   quote,
@@ -43,10 +43,10 @@ export async function quoteToImage({
   );
 }
 
-function extractFontFamily(fontFamily: string): string {
-  const match = fontFamily.match(/"([^"]+)"|([^,]+)/);
-  return match ? match[1] || match[2] : "sans-serif";
-}
+// function extractFontFamily(fontFamily: string): string {
+//   const match = fontFamily.match(/"([^"]+)"|([^,]+)/);
+//   return match ? match[1] || match[2] : "sans-serif";
+// }
 
 function loadImage(src: string): Promise<HTMLImageElement> {
   return new Promise((resolve, reject) => {

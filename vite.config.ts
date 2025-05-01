@@ -9,5 +9,6 @@ export default defineConfig({
     alias: {
       '@assets': path.resolve(__dirname, './src/assets'),
     }
-  }
+  },
+  base: '/DeepQuotes'
 })
