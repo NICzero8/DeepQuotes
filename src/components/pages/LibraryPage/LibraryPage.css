@@ -1,0 +1,29 @@
+.library-page-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 2rem;
+    width: 100%;
+    padding: var(--padding-L);
+}
+
+.construction-icon {
+    width: 15%;
+    aspect-ratio: 1/1;
+
+    mask: url("@assets/images/ui/engineering-icon.svg") no-repeat center;
+    -webkit-mask: url("@assets/images/ui/engineering-icon.svg") no-repeat center;
+    mask-size: contain;
+    -webkit-mask-size: contain;
+    background: var(--gradient-accent);
+
+    
+    @media (min-width: 768px) and (max-width: 1199px) {
+        width: 25%
+    }
+    
+    @media (max-width: 767px) {
+        width: 40%;
+    }
+}

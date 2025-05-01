@@ -1,0 +1,202 @@
+@import url("https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;900&display=swap");
+
+/* Базовые сбросы и настройки */
+:root {
+  /* Цвета */
+  --bg-primary: #1a1e24;
+  --text-primary: #e0e3e7;
+  --muted: rgb(100, 100, 100);
+  --shadow-light: rgba(255, 255, 255, 0.05);
+  --shadow-dark: rgba(0, 0, 0, 0.3);
+  --hard-shadow-dark:rgba(0, 0, 0, 0.6);
+  --edge-reflection: #262b31;
+
+  /* Градиенты */
+  --gradient-surface: linear-gradient(145deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0.1) 100%);
+  --gradient-main: linear-gradient(135deg, #2d73ff 0%, #00c9a7 90%);
+  --gradient-accent: linear-gradient(135deg, #4ac29a, #bdfff3);
+  --glow-effect: drop-shadow(0 0 8px rgba(0, 255, 179, 0.6));
+
+  /* Геометрия */
+  --border-radius-L: 2rem;
+  --border-radius-S: 1rem;
+  --padding-L: 2rem;
+  --padding-S: 0.5rem 1rem;
+}
+
+* {
+  padding: 0px;
+  margin: 0px;
+  border: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+body {
+  font-family: "Nunito", sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+  padding: 0 var(--padding-L);
+}
+
+img,
+svg {
+  width: 100%;
+  height: auto;
+}
+
+address {
+  font-style: normal;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+/* Общие стили для текста */
+h1,
+h2,
+h3 {
+  font-weight: 700;
+}
+
+h2 {
+  font-size: 1.5rem;
+}
+
+h3 {
+  font-size: 1.2rem;
+}
+
+p {
+  margin-bottom: 1rem;
+  font-weight: 400;
+}
+
+a {
+  color: var(--text-primary);
+  text-decoration: none;
+}
+
+input {
+  font-family: "Nunito", sans-serif;
+}
+
+.gradient-text {
+  background: var(--gradient-main);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: gradient-shift 6s ease infinite;
+}
+
+.gradient-text-accent {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  padding: var(--padding-L);
+  margin: 2rem auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--edge-reflection);
+  border-right: 1px solid var(--edge-reflection);
+  border-radius: var(--border-radius-L);
+  background: var(--gradient-surface);
+  box-shadow: 12px 12px 24px var(--shadow-dark),
+    -12px -12px 24px var(--shadow-light);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  70% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Responsive */
+
+/* 2. Планшет — от 768px до 1199px */
+@media (min-width: 768px) and (max-width: 1199px) {
+  :root {
+    --border-radius-L: 1.5rem;
+    --padding-L: 1.5rem;
+  }
+
+  .container {
+    max-width: 800px;
+  }
+
+  h1 {
+    font-size: 2.1rem;
+  }
+}
+
+/* 3. Мобильные — до 767px */
+@media (max-width: 767px) {
+  :root {
+  --border-radius-L: 1rem;
+  --border-radius-S: 0.75rem;
+  --padding-L: 1rem;
+  --padding-S: 0.4rem 0.8rem
+  }
+
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+  
+  h3 {
+    font-size: 1.1rem;
+  }
+
+  p {
+    font-size: 0.9rem;
+  }
+}
+
+/* Очень маленькие экраны */
+@media (max-width: 375px) {
+  :root {
+    --padding-L: 0.8rem;
+    --padding-S: 0.3rem 0.6rem;
+  }
+
+  h1 {
+    font-size: 1.5rem;
+  }
+  
+  h2 {
+    font-size: 1.2rem;
+  }
+  
+  h3 {
+    font-size: 1rem;
+  }
+}

@@ -1,0 +1,120 @@
+.author-selector-container {
+  position: relative;
+  height: 5rem;
+  width: 100%;
+  border-radius: var(--border-radius-S);
+  overflow: hidden;
+}
+
+.author-selector-shadow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+  inset 6px 6px 12px var(--hard-shadow-dark);
+  box-shadow:
+  inset 3px 3px 12px 3px var(--hard-shadow-dark);
+  border-bottom: 2px var(--edge-reflection) solid;
+  border-right: 1px var(--edge-reflection) solid;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.author-selector-wrapper {
+  height: 100%;
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.author-selector-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll-container {
+  display: flex;
+  gap: 1rem;
+  height: 100%;
+  min-width: fit-content;
+  padding: 0.5rem 1rem;
+  background: url("@assets/images/ui/pattern-dark.png"), var(--bg-primary);
+  background-blend-mode: luminosity;
+  background-size: cover;
+}
+
+.avatar {
+  cursor: pointer;
+  position: relative;
+  z-index: 0;
+  display: inline-block;
+  height: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  background: var(--bg-primary);
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+  -6px -6px 12px var(--shadow-light);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.avatar span {
+  position: absolute;
+  content: "";
+  left: 50%;
+  top: 50%;
+  width: 80%;
+  height: 80%;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+  background: var(--muted);
+  transform: translate(-50%, -50%);
+  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+}
+
+input[type="radio"]:checked + .avatar {
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+  -6px -6px 12px var(--shadow-light), 
+  inset 6px 6px 12px var(--shadow-dark),
+  inset -6px -6px 12px var(--shadow-light);
+}
+
+@media (hover: hover) and (pointer: fine) {
+.avatar:hover {
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+  -6px -6px 12px var(--shadow-light), 
+  inset 3px 3px 6px var(--shadow-dark),
+  inset -3px -3px 6px var(--shadow-light);
+}
+.avatar:hover span {
+  background: var(--gradient-accent);
+}
+}
+
+input[type="radio"]:checked + .avatar span {
+  background: var(--gradient-accent);
+}
+
+
+.arrows {
+  margin-top: 0.2rem;
+  align-self: center;
+  width: 70%;
+  height: 1rem;
+  background: var(--muted);
+  mask: url("@assets/images/ui/arrows.svg") no-repeat center;
+  -webkit-mask: url("@assets/images/ui/arrows.svg") no-repeat center;
+  mask-size: contain;
+  -webkit-mask-size: contain;
+}
+
+/* Адаптивность */
+
+@media (max-width: 767px) {
+  .author-selector-container {
+    height: 4.5rem;
+  }
+}
