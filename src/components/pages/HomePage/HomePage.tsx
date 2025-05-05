@@ -48,22 +48,22 @@ const authors: Author[] = [
 export default function HomePage() {
   const [currentAuthor, setCurrentAuthor] = React.useState<Author>(authors[0]);
   const [theme, setTheme] = useState("");
-  const [generatedQuote, setGeneratedQuote] = useState<string | null>(null);
+  const [generatedQuote, setGeneratedQuote] = useState<string>('');
   const [generatedAuthor, setGeneratedAuthor] = useState<Author | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
 
   const handleGenerate = async () => {
     setIsGenerating(true);
     try {
+      setGeneratedAuthor(currentAuthor); // фиксация выбранного автора
       // Здесь будет логика генерации цитаты на основе выбранного автора и темы
-      // Будет использован API DeepSeek для генерации цитат
+      // Будет использован API нейросети для генерации цитат
       // Для примера пока установлена статичная цитата
-      await new Promise((resolve) => setTimeout(resolve, 1000)); // Заглушка
+      await new Promise((resolve) => setTimeout(resolve, 2000)); // Заглушка
 
       setGeneratedQuote(
         `"Сложно быть человеком, гораздо проще быть пришельцем. Или рыбой-пришельцем. Ведь рыба-пришелец — это не просто рыба, а рыба с характером"`
       );
-      setGeneratedAuthor(currentAuthor); // фиксируем автора именно на момент генерации
     } catch (error) {
       console.error("Ошибка при генерации:", error);
     } finally {
@@ -87,8 +87,8 @@ export default function HomePage() {
   return (
     <div className="home-page_wrapper">
       <div className="content_wrapper">
-        {generatedQuote && generatedAuthor ? (
-          <QuoteCard author={generatedAuthor} quote={generatedQuote} />
+        { generatedAuthor ? (
+          <QuoteCard author={generatedAuthor} quote={generatedQuote} isGenerating={isGenerating}/>
         ) : (
           welcomeMessage
         )}

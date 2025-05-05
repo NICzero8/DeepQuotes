@@ -13,7 +13,7 @@
 
   /* Градиенты */
   --gradient-surface: linear-gradient(145deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 0, 0, 0.1) 100%);
-  --gradient-main: linear-gradient(135deg, #2d73ff 0%, #00c9a7 90%);
+  --gradient-main: linear-gradient(135deg, #2d73ff 0%, #00c9a7 40%, #4ab0c2 100%);
   --gradient-accent: linear-gradient(135deg, #4ac29a, #bdfff3);
   --glow-effect: drop-shadow(0 0 8px rgba(0, 255, 179, 0.6));
 
@@ -22,6 +22,9 @@
   --border-radius-S: 1rem;
   --padding-L: 2rem;
   --padding-S: 0.5rem 1rem;
+
+  /* Переходы */
+  --transition: 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 * {
@@ -137,7 +140,18 @@ input {
   }
 }
 
-/* Responsive */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Адаптивность */
 
 /* 2. Планшет — от 768px до 1199px */
 @media (min-width: 768px) and (max-width: 1199px) {

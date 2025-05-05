@@ -11,10 +11,10 @@
   width: 100%;
   border-radius: var(--border-radius-S);
   overflow: hidden;
-  border: 0.2rem solid var(--bg-primary);
-  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  transition: all var(--transition);
 }
 
+/* Стилизация карточки цитаты */
 .quote-card {
   position: relative;
   width: 100%;
@@ -26,6 +26,7 @@
   inset: 0;
   z-index: -1;
   filter: grayscale(50%) contrast(85%) brightness(80%);
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .quote-container {
@@ -38,10 +39,6 @@
   text-align: center;
 }
 
-.quote-text {
-  /* text-transform: uppercase; */
-}
-
 .quote-author {
   text-align: end;
   font-size: 1.2rem;
@@ -49,6 +46,7 @@
   margin-top: 1rem;
 }
 
+/* Стилизация кнопок */
 .quote-card-buttons-wrapper {
   display: flex;
   gap: 1rem;
@@ -74,25 +72,7 @@
   background: var(--bg-primary);
   box-shadow: 6px 6px 12px var(--shadow-dark),
     -6px -6px 12px var(--shadow-light);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .quote-card-button:hover {
-    box-shadow: 6px 6px 12px var(--shadow-dark),
-      -6px -6px 12px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark),
-      inset -3px -3px 6px var(--shadow-light);
-  }
-}
-
-.quote-card-button:active {
-  box-shadow: 6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light), inset 6px 6px 12px var(--shadow-dark),
-    inset -6px -6px 12px var(--shadow-light);
-}
-
-.quote-card-button:active::after {
-  background: var(--gradient-accent);
+  transition: all var(--transition);
 }
 
 .quote-card-button::after {
@@ -106,8 +86,27 @@
   -webkit-mask-size: contain;
   background: var(--muted);
   transform: translate(-50%, -50%);
-  transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all var(--transition);
   pointer-events: none;
+}
+
+/* Эффекты взаимодействия с кнопками */
+.quote-card-button:active {
+  box-shadow: 6px 6px 12px var(--shadow-dark),
+    -6px -6px 12px var(--shadow-light), inset 6px 6px 12px var(--shadow-dark),
+    inset -6px -6px 12px var(--shadow-light);
+}
+
+.quote-card-button:active::after {
+  background: var(--gradient-accent);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .quote-card-button:hover {
+    box-shadow: 6px 6px 12px var(--shadow-dark),
+      -6px -6px 12px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark),
+      inset -3px -3px 6px var(--shadow-light);
+  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -116,6 +115,32 @@
   }
 }
 
+/* Эффекты выдавливания */
+
+.quote-card-container {
+  transform: scale(1);
+  border: 0.2rem solid var(--bg-primary);
+  box-shadow: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+}
+
+.quote-card-container.generating {
+  transform: scale(0.99);
+  border-color: transparent;
+  box-shadow: none;
+}
+
+.quote-card-button {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.quote-card-buttons-wrapper.generating .quote-card-button {
+  box-shadow: none;
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+/* Маски кнопок */
 .switch-bg-left::after {
   mask: url("@assets/images/ui/chevron-left.svg") no-repeat center;
   -webkit-mask: url("@assets/images/ui/chevron-left.svg") no-repeat center;
@@ -137,6 +162,7 @@
   -webkit-mask: url("@assets/images/ui/download-icon.svg") no-repeat center;
 }
 
+/* Адаптивность */
 @media (min-width: 768px) and (max-width: 1199px) {
 }
 

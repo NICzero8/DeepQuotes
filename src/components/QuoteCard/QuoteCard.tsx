@@ -2,13 +2,19 @@ import "./QuoteCard.css";
 import { useEffect, useRef, useState } from "react";
 import { Author } from "../pages/HomePage/HomePage";
 import { toPng } from "html-to-image";
+import Loader from "../Loader/Loader";
 
 interface QuoteCardProps {
   author: Author;
   quote: string;
+  isGenerating: boolean;
 }
 
-export default function QuoteCard({ author, quote }: QuoteCardProps) {
+export default function QuoteCard({
+  author,
+  quote,
+  isGenerating,
+}: QuoteCardProps) {
   const cardRef = useRef(null);
   const [fontSize, setFontSize] = useState(0);
   const [paddingSize, setPaddingSize] = useState(0);
@@ -49,36 +55,53 @@ export default function QuoteCard({ author, quote }: QuoteCardProps) {
 
   return (
     <div className="quote-card-wrapper">
-      <div className="quote-card-container">
+      <div className={`quote-card-container ${
+          isGenerating ? "generating" : ""
+        }`}>
         <div className="quote-card" style={author.fontStyle} ref={cardRef}>
-          <img src={author.backgrounds[bgIndex]} alt={author.name} />
-          <div
-            className="quote-container"
-            style={{ padding: `0 ${paddingSize}px` }}
-          >
-            <div
-              className="quote-text"
-              style={{
-                fontSize: `${fontSize}px`,
-              }}
-            >
-              {quote}
-            </div>
-            <div
-              className="quote-author"
-              style={{ fontSize: `${fontSize * 0.7}px` }}
-            >
-              — {author.name}
-            </div>
-          </div>
+          {isGenerating ? (
+            <Loader />
+          ) : (
+            <>
+              {" "}
+              <img src={author.backgrounds[bgIndex]} alt={author.name} />
+              <div
+                className="quote-container"
+                style={{ padding: `0 ${paddingSize}px` }}
+              >
+                <div
+                  className="quote-text"
+                  style={{
+                    fontSize: `${fontSize}px`,
+                  }}
+                >
+                  {quote}
+                </div>
+                <div
+                  className="quote-author"
+                  style={{ fontSize: `${fontSize * 0.7}px` }}
+                >
+                  — {author.name}
+                </div>
+              </div>
+            </>
+          )}
         </div>
       </div>
-      <div className="quote-card-buttons-wrapper">
+      <div
+        className={`quote-card-buttons-wrapper ${
+          isGenerating ? "generating" : ""
+        }`}
+      >
         <div className="switch-bg-buttons-wrapper">
           <button
             className="switch-bg-left quote-card-button"
             onClick={() =>
-              setBgIndex((prev) => (prev - 1 + author.backgrounds.length) % author.backgrounds.length)
+              setBgIndex(
+                (prev) =>
+                  (prev - 1 + author.backgrounds.length) %
+                  author.backgrounds.length
+              )
             }
           />
           <button
