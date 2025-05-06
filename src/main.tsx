@@ -6,11 +6,7 @@ import "./styles/globals.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <HashRouter
-      basename={
-        import.meta.env.MODE === "production" ? "/DeepQuotes" : undefined
-      }
-    >
+    <HashRouter>
       <App />
     </HashRouter>
   </React.StrictMode>
