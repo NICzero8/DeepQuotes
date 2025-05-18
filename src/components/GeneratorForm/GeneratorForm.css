@@ -20,6 +20,7 @@ input[type="radio"] {
 }
 
 textarea {
+  resize: none;
   border: none;
   height: 5rem;
   padding: var(--padding-S);
