@@ -1,0 +1,32 @@
+.error-wrapper {
+  width: 100%;
+  display: flex;
+  gap: 0.5rem;
+  padding: var(--padding-L);
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-family: Nunito, sans-serif;
+}
+
+.error-icon {
+  position: relative;
+  width: 80%;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+  box-shadow: 
+  4px 4px 8px var(--shadow-dark) inset,
+    -4px -4px 8px var(--shadow-light) inset;
+}
+
+.error-icon::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-error);
+  background-size: 200% 200%;
+  animation: gradient-shift 3s ease infinite;
+  mask: url("@assets/images/ui/error.svg") no-repeat center;
+  -webkit-mask: url("@assets/images/ui/error.svg") no-repeat center;
+}

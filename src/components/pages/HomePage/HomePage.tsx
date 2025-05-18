@@ -4,6 +4,7 @@ import "./HomePage.css";
 import GeneratorForm from "../../GeneratorForm/GeneratorForm";
 import QuoteCard from "../../QuoteCard/QuoteCard";
 import { authorAssets, maskAssets } from "../../../assetsMap";
+// import TestCleanQuote from "../../TestCleanQuote";
 
 export type Author = {
   id: string;
@@ -43,33 +44,53 @@ const authors: Author[] = [
     backgrounds: authorAssets["stallone"],
     mask: maskAssets["stallone"],
   },
+    {
+    id: "diesel",
+    name: "Вин Дизель",
+    fontStyle: { fontFamily: '"Exo 2", sans-serif', fontWeight: 700 },
+    backgrounds: authorAssets["diesel"],
+    mask: maskAssets["diesel"],
+  },
 ];
 
 export default function HomePage() {
   const [currentAuthor, setCurrentAuthor] = React.useState<Author>(authors[0]);
   const [theme, setTheme] = useState("");
-  const [generatedQuote, setGeneratedQuote] = useState<string>('');
+  const [generatedQuote, setGeneratedQuote] = useState<string>("");
   const [generatedAuthor, setGeneratedAuthor] = useState<Author | null>(null);
   const [isGenerating, setIsGenerating] = useState(false);
+  const [isError, setIsError] = useState<boolean>(false);
 
-  const handleGenerate = async () => {
-    setIsGenerating(true);
-    try {
-      setGeneratedAuthor(currentAuthor); // фиксация выбранного автора
-      // Здесь будет логика генерации цитаты на основе выбранного автора и темы
-      // Будет использован API нейросети для генерации цитат
-      // Для примера пока установлена статичная цитата
-      await new Promise((resolve) => setTimeout(resolve, 2000)); // Заглушка
+const handleGenerate = async () => {
+  setIsGenerating(true);
+  try {
+    setGeneratedAuthor(currentAuthor);
 
-      setGeneratedQuote(
-        `"Сложно быть человеком, гораздо проще быть пришельцем. Или рыбой-пришельцем. Ведь рыба-пришелец — это не просто рыба, а рыба с характером"`
-      );
-    } catch (error) {
-      console.error("Ошибка при генерации:", error);
-    } finally {
-      setIsGenerating(false);
+    const res = await fetch("/api/quote", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        author: currentAuthor.name,
+        theme: theme,
+      }),
+    });
+
+    const data = await res.json();
+
+    if (res.ok) {
+      setGeneratedQuote(data.quote);
+      setIsError(false);
+    } else {
+      console.error("Ошибка от сервера:", data.error);
+      setIsError(true);
     }
-  };
+  } catch (error) {
+    console.error("Ошибка при генерации:", error);
+    setIsError(true);
+  } finally {
+    setIsGenerating(false);
+  }
+};
 
   const welcomeMessage = (
     // Сообщение, выводимое при первоначальной загрузке в content-wrapper
@@ -77,8 +98,8 @@ export default function HomePage() {
     <div className="welcome-message">
       <h2 className="gradient-text-accent">Создай мудрость в стиле великих!</h2>
       <p className="description">
-        Выбери персонажа, задай тему — получи цитату,
-        <span className="highlight"> которая взорвёт мозг </span>
+        Выбери личность, задай тему — получи цитату, которая
+        <span className="gradient-text-accent"> взорвёт мозг </span>
         твоим друзьям
       </p>
     </div>
@@ -87,8 +108,13 @@ export default function HomePage() {
   return (
     <div className="home-page_wrapper">
       <div className="content_wrapper">
-        { generatedAuthor ? (
-          <QuoteCard author={generatedAuthor} quote={generatedQuote} isGenerating={isGenerating}/>
+        {generatedAuthor ? (
+          <QuoteCard
+            author={generatedAuthor}
+            quote={generatedQuote}
+            isGenerating={isGenerating}
+            isError={isError}
+          />
         ) : (
           welcomeMessage
         )}
@@ -103,6 +129,7 @@ export default function HomePage() {
           onGenerate={handleGenerate}
           isGenerating={isGenerating}
         />
+        {/* <TestCleanQuote /> */}
       </div>
     </div>
   );

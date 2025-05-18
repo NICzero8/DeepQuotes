@@ -1,4 +1,5 @@
 .author-selector-container {
+  /*Общий контенер для геометрии компонента*/
   position: relative;
   height: 5rem;
   width: 100%;
@@ -7,13 +8,12 @@
 }
 
 .author-selector-shadow {
+  /*Элемент для создания тени, находящейся поверх внутренних элементов*/
   position: absolute;
   inset: 0;
   border-radius: inherit;
-  box-shadow:
-  inset 6px 6px 12px var(--hard-shadow-dark);
-  box-shadow:
-  inset 3px 3px 12px 3px var(--hard-shadow-dark);
+  box-shadow: inset 6px 6px 12px var(--hard-shadow-dark);
+  box-shadow: inset 3px 3px 12px 3px var(--hard-shadow-dark);
   border-bottom: 2px var(--edge-reflection) solid;
   border-right: 1px var(--edge-reflection) solid;
   z-index: 2;
@@ -21,6 +21,7 @@
 }
 
 .author-selector-wrapper {
+  /*Обертка для скролла сделана отдельным элементом для реализации подвижного фона у элемента scroll-container*/
   height: 100%;
   width: 100%;
   overflow-x: auto;
@@ -47,6 +48,7 @@
 }
 
 .avatar {
+  /*Элемент для отображения аватара, задает геометрию кнопки*/
   cursor: pointer;
   position: relative;
   z-index: 0;
@@ -56,11 +58,12 @@
   border-radius: 50%;
   background: var(--bg-primary);
   box-shadow: 6px 6px 12px var(--shadow-dark),
-  -6px -6px 12px var(--shadow-light);
+    -6px -6px 12px var(--shadow-light);
   transition: all var(--transition);
 }
 
 .avatar span {
+  /*Создает изображение для аватара на кнопке в виде маски, чтобы была возможность управлять цветом этого изображения*/
   position: absolute;
   content: "";
   left: 50%;
@@ -75,30 +78,39 @@
   pointer-events: none;
 }
 
+.avatar span::after {
+  /*Создает эффект подсветки при наведении на кнопку или активном состоянии*/
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--gradient-accent);
+  opacity: 0;
+  transition: all var(--transition);
+}
+
+/* Микровзаимодействия */
 input[type="radio"]:checked + .avatar {
   box-shadow: 6px 6px 12px var(--shadow-dark),
-  -6px -6px 12px var(--shadow-light), 
-  inset 6px 6px 12px var(--shadow-dark),
-  inset -6px -6px 12px var(--shadow-light);
+    -6px -6px 12px var(--shadow-light), inset 6px 6px 12px var(--shadow-dark),
+    inset -6px -6px 12px var(--shadow-light);
 }
 
 @media (hover: hover) and (pointer: fine) {
-.avatar:hover {
-  box-shadow: 6px 6px 12px var(--shadow-dark),
-  -6px -6px 12px var(--shadow-light), 
-  inset 3px 3px 6px var(--shadow-dark),
-  inset -3px -3px 6px var(--shadow-light);
-}
-.avatar:hover span {
-  background: var(--gradient-accent);
-}
-}
-
-input[type="radio"]:checked + .avatar span {
-  background: var(--gradient-accent);
+  .avatar:hover {
+    box-shadow: 6px 6px 12px var(--shadow-dark),
+      -6px -6px 12px var(--shadow-light), inset 3px 3px 6px var(--shadow-dark),
+      inset -3px -3px 6px var(--shadow-light);
+  }
+  .avatar:hover span::after {
+    opacity: 1;
+  }
 }
 
+input[type="radio"]:checked + .avatar span::after {
+  opacity: 1;
+}
 
+/* Стрелочки указывающие на возможность скролла */
 .arrows {
   margin-top: 0.2rem;
   align-self: center;

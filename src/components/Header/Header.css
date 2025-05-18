@@ -6,8 +6,7 @@
   padding: var(--padding-L);
   border-radius: 0 0 var(--border-radius-L) var(--border-radius-L);
   background: var(--gradient-surface);
-  box-shadow: 
-    12px 12px 24px var(--shadow-dark),
+  box-shadow: 12px 12px 24px var(--shadow-dark),
     -12px -12px 24px var(--shadow-light);
   border-bottom: 1px solid var(--edge-reflection);
   border-right: 1px solid var(--edge-reflection);
@@ -21,6 +20,7 @@
 }
 
 .logo-mask {
+  /* Элемент для отображения логотипа, сделано через маску, чтобы установить градиент как цвет фона */
   margin-top: 2%;
   width: 60px;
   aspect-ratio: 1;
@@ -44,46 +44,47 @@
 }
 
 .nav-link {
+  /* Общая геометрия для элементов навигации */
   position: relative;
   font-size: 1.1rem;
   font-weight: 500;
-  color: var(--text-primary);
   border-bottom: 1px solid var(--edge-reflection);
   border-right: 1px solid var(--edge-reflection);
   padding: 0.7rem 1.2rem;
   border-radius: var(--border-radius-S);
   background: var(--bg-primary);
-  box-shadow: 
-    4px 4px 8px var(--shadow-dark),
-    -4px -4px 8px var(--shadow-light),
-    inset 0px 0px 0px var(--shadow-dark),
-    inset 0px 0px 0px var(--shadow-light);
-    transition: all var(--transition);
-}
-
-@media (hover: hover) and (pointer: fine) {
-.nav-link:hover {
-  box-shadow: 
-    2px 2px 4px var(--shadow-dark),
-    -2px -2px 4px var(--shadow-light);
-}
-}
-.nav-link.active {
-  box-shadow:
-    0px 0px 0px var(--shadow-dark),
-    0px 0px 0px var(--shadow-light),
-    inset 2px 2px 4px var(--shadow-dark),
-    inset -2px -2px 4px var(--shadow-light);
+  box-shadow: 4px 4px 8px var(--shadow-dark), -4px -4px 8px var(--shadow-light),
+    inset 0px 0px 0px var(--shadow-dark), inset 0px 0px 0px var(--shadow-light);
+  transition: all var(--transition);
 }
 
 .nav-link span {
+  /* Элемент для текста кнопки, сделано через маску, чтобы установить градиент как цвет фона и анимировать при взаимодействии */
+  background: var(--text-primary);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
   transition: all var(--transition);
+  z-index: 1;
+}
+/* Микровзаимодействия с элементами навигации */
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover {
+    box-shadow: 2px 2px 4px var(--shadow-dark),
+      -2px -2px 4px var(--shadow-light);
+  }
+}
+.nav-link.active {
+  box-shadow: 0px 0px 0px var(--shadow-dark), 0px 0px 0px var(--shadow-light),
+    inset 2px 2px 4px var(--shadow-dark),
+    inset -2px -2px 4px var(--shadow-light);
 }
 
 /* Подчеркивание */
 
 .nav-link::before {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 17%;
   left: 11%;
@@ -96,30 +97,36 @@
 }
 
 .nav-link::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 15%;
   left: 10%;
   right: 10%;
-  /* width: 0; */
   height: 3px;
-  box-shadow: 
-  1px 1px 2px rgba(0, 0, 0, 0.4) inset,
+  box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.4) inset,
     -1px -1px 2px rgba(255, 255, 255, 0.08) inset;
   border-radius: 1px;
 }
 
-.nav-link:hover::before,
+@media (hover: hover) and (pointer: fine) {
+  .nav-link:hover::before {
+    width: 78%;
+  }
+  .nav-link:hover span {
+  background: var(--gradient-accent);
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+}
+
 .nav-link.active::before {
   width: 78%;
 }
 
-.nav-link.active span,
-.nav-link:hover span {
+.nav-link.active span {
   background: var(--gradient-accent);
   -webkit-background-clip: text;
   background-clip: text;
-  color: transparent;
 }
 
 /* Адаптивность */
@@ -131,7 +138,6 @@
 }
 
 @media (max-width: 767px) {
-
   .logo-wrapper h1 {
     display: none;
   }
@@ -149,11 +155,9 @@
     font-size: 1rem;
     padding: 0.6rem 1rem;
   }
-  
 }
 
 @media (max-width: 375px) {
-
   .navigation {
     gap: 0.8rem;
   }
@@ -166,5 +170,4 @@
     font-size: 0.8rem;
     padding: 0.5rem 0.8rem;
   }
-  
 }

@@ -3,17 +3,20 @@ import { useEffect, useRef, useState } from "react";
 import { Author } from "../pages/HomePage/HomePage";
 import { toPng } from "html-to-image";
 import Loader from "../Loader/Loader";
+import ErrorCard from "../ErrorCard/ErrorCard";
 
 interface QuoteCardProps {
   author: Author;
   quote: string;
   isGenerating: boolean;
+  isError: boolean;
 }
 
 export default function QuoteCard({
   author,
   quote,
   isGenerating,
+  isError,
 }: QuoteCardProps) {
   const cardRef = useRef(null);
   const [fontSize, setFontSize] = useState(0);
@@ -56,14 +59,13 @@ export default function QuoteCard({
   return (
     <div className="quote-card-wrapper">
       <div className={`quote-card-container ${
-          isGenerating ? "generating" : ""
+          isGenerating || isError ? "generating" : ""
         }`}>
         <div className="quote-card" style={author.fontStyle} ref={cardRef}>
           {isGenerating ? (
             <Loader />
-          ) : (
+          ) : ( isError ? ( <ErrorCard /> ) : (
             <>
-              {" "}
               <img src={author.backgrounds[bgIndex]} alt={author.name} />
               <div
                 className="quote-container"
@@ -85,12 +87,12 @@ export default function QuoteCard({
                 </div>
               </div>
             </>
-          )}
+          ))}
         </div>
       </div>
       <div
         className={`quote-card-buttons-wrapper ${
-          isGenerating ? "generating" : ""
+          isGenerating || isError? "generating" : ""
         }`}
       >
         <div className="switch-bg-buttons-wrapper">

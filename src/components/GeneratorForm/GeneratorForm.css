@@ -6,6 +6,7 @@ form {
 form h3 {
   margin-bottom: 0.5rem;
 }
+
 input[type="radio"] {
   -webkit-appearance: none;
   -moz-appearance: none;
